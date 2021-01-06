@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<div class="container" style="padding:50px 250px;">
+	<div class="container">
 		<h1 class="title">Search Santa's List</h1>
 		<form role="form">
 			<div class="form-group">
@@ -62,15 +62,31 @@
 	}
 
 	function tweetCurrentReview(index, note) {
-		console.log("Text length: " + note.length);
-		var tweetUrl = "https://twitter.com/intent/tweet?url=" + decodeURIComponent(window.location.origin) + "?index=" + index + "&text=Naughty%20Nice%20Blockchain%20review%20%23" + index + ": %22" + atob(note) + "%22&hashtags=holidayhackchallenge"
+
+		var decodedNote = atob(note);
+
+		if (decodedNote.length > 200){
+			decodedNote = decodedNote.substring(1,200) + "..."
+			console.log(decodedNote)
+		}
+
+		var tweetParam = {
+			url: "?url=" + decodeURIComponent(window.location.origin) + "?index=" + index,
+			text: "&text=Elf%20Report%20%23" + index + ":%20%22" + decodedNote + "%22",
+			hashtag : "&hashtags=holidayhack",
+			related: "&screen_name=kringlecon"
+		}
+
+		// var tweetUrl = "https://twitter.com/intent/tweet?url=" + decodeURIComponent(window.location.origin) + "?index=" + index + "&text=Naughty%20Nice%20Blockchain%20review%20%23" + index + ": %22" + atob(note) + "%22&hashtags=holidayhackchallenge"
+		var tweetUrl = "https://twitter.com/intent/tweet" + tweetParam.url + tweetParam.text + tweetParam.hashtag + tweetParam.related;
+		console.log(tweetUrl)
 		window.open(tweetUrl, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
 		return false;
 	}
 
 
 	function loopList(data) {
-		var output = '<div class="row">'
+		var output = '<div>'
 
 		if (data.length) {
 			for (let review in data) {
