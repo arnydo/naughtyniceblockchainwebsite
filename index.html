@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="description" content="Search the Official Naughty Nice List Blockchain" />
+	<meta name="keywords" content="HTML,CSS,JavaScript" />
+	<meta name="author" content="Kyle Parrish" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:description" content="Search the Official Naughty Nice List Blockchain." />
+	<meta name="twitter:title" content="Search the Official Naughty Nice List Blockchain" />
+	<meta name="twitter:site" content="@kyle_parrish_" />
+	<meta name="twitter:creator" content="@kyle_parrish_" />
+
+	<link rel="stylesheet" href="style/style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@1,700&display=swap" rel="stylesheet">
+	<title>The Official Naughty Nice List</title>
+</head>
+
+<body>
+	<div class="container" style="padding:50px 250px;">
+		<h1 class="title">Search Santa's List</h1>
+		<form role="form">
+			<div class="form-group">
+				<input type="input" class="form-control input-lg" id="txt-search"
+					placeholder="Type your search character">
+			</div>
+		</form>
+		<div id="filter-buttons">
+			<button id="all-list">All</button>
+			<button id="naughty-list">Naughty</button>
+			<button id="nice-list">Nice</button>
+			<button id="random-list">Random</button>
+		</div>
+		<div id="filter-records"></div>
+	</div>
+</body>
+
+</html>
+
+<script type="text/javascript">
+
+	const urlParams = new URLSearchParams(window.location.search);
+
+	function loadJSON(callback) {
+
+		var xobj = new XMLHttpRequest();
+		xobj.overrideMimeType("application/json");
+		xobj.open('GET', 'assets/naughtynicelist.json', true); // Replace 'appDataServices' with the path to your file
+		xobj.onreadystatechange = function () {
+			if (xobj.readyState == 4 && xobj.status == "200") {
+				// Required use of an anonymous callback as .open will NOT return a data[review]ue but simply returns undefined in asynchronous mode
+				callback(xobj.responseText);
+			}
+		};
+		xobj.send(null);
+	}
+
+	function tweetCurrentReview(index, note) {
+		console.log("Text length: " + note.length);
+		var tweetUrl = "https://twitter.com/intent/tweet?url=" + decodeURIComponent(window.location.origin) + "?index=" + index + "&text=Naughty%20Nice%20Blockchain%20review%20%23" + index + ": %22" + atob(note) + "%22&hashtags=holidayhackchallenge"
+		window.open(tweetUrl, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+		return false;
+	}
+
+
+	function loopList(data) {
+		var output = '<div class="row">'
+
+		if (data.length) {
+			for (let review in data) {
+
+				output += '<div class="col-md-12 well">';
+				output += '<div class="col-md-12 ' + data[review].sign.toLowerCase() + '" >';
+				output += '<h3 class="' + data[review].sign.toLowerCase() + '">' + data[review].index + '</h3>';
+				output += '<p>' + data[review].note + '</p>'
+				output += '<dl class="inline">'
+				output += '<dt>ELF:</dt>'
+				output += '<dd>' + data[review].elfid + '</dd>'
+				output += '<dt>DATE:</dt>'
+				output += '<dd>' + data[review].date + '</dd>'
+				output += '<dt>SCORE:</dt>'
+				output += '<dd>' + data[review].score + '</dd>'
+				output += '<dt>PID:</dt>'
+				output += '<dd>' + data[review].pid + '</dd>'
+				output += '<dt>RID:</dt>'
+				output += '<dd>' + data[review].rid + '</dd>'
+				output += '<dt>SIGN:</dt>'
+				output += '<dd>' + data[review].sign + '</dd>'
+				output += '</dl>'
+				output += '<div class="share-review"><a href="javascript:tweetCurrentReview(' + data[review].index + ',%22' + btoa(unescape(encodeURIComponent(data[review].note))) + '%22)"><i class="fa fa-twitter fa-2x">Share this review on Twitter!</i></a></div>'
+				output += '</div>';
+				output += '</div>';
+			};
+
+		} else {
+			output += '<div class="col-md-12 well">';
+			output += '<div class="col-md-12 ' + data.sign.toLowerCase() + '" >';
+			output += '<h3 class="' + data.sign.toLowerCase() + '">' + data.index + '</h3>';
+			output += '<p>' + data.note + '</p>'
+			output += '<dl class="inline">'
+			output += '<dt>ELF:</dt>'
+			output += '<dd>' + data.elfid + '</dd>'
+			output += '<dt>DATE:</dt>'
+			output += '<dd>' + data.date + '</dd>'
+			output += '<dt>SCORE:</dt>'
+			output += '<dd>' + data.score + '</dd>'
+			output += '<dt>PID:</dt>'
+			output += '<dd>' + data.pid + '</dd>'
+			output += '<dt>RID:</dt>'
+			output += '<dd>' + data.rid + '</dd>'
+			output += '<dt>SIGN:</dt>'
+			output += '<dd>' + data.sign + '</dd>'
+			output += '</dl>'
+			output += '<div class="share-review"><a href="javascript:tweetCurrentReview(' + data.index + ',%22' + btoa(unescape(encodeURIComponent(data.note))) + '%22)"><i class="fa fa-twitter fa-2x">Share this review on Twitter!</i></a></div>'
+			output += '</div>';
+			output += '</div>';
+		}
+
+		output += '</div>';
+
+		document.getElementById("filter-records").innerHTML = output
+
+	};
+
+	function init() {
+		loadJSON(function (response) {
+			// Parsing JSON string into object
+			var actual_JSON = JSON.parse(response);
+
+			document.getElementById("all-list").onclick = function () {
+				loopList(actual_JSON)
+			}
+			document.getElementById("naughty-list").onclick = function () {
+				var filteredData = actual_JSON.filter(function (review) {
+					return review.sign.toLowerCase() === 'naughty';
+
+				});
+
+				loopList(filteredData)
+			}
+			document.getElementById("nice-list").onclick = function () {
+				var filteredData = actual_JSON.filter(function (review) {
+					return review.sign.toLowerCase() === 'nice';
+
+				});
+
+				loopList(filteredData)
+			}
+			document.getElementById("random-list").onclick = function () {
+				var randomPick = Math.floor(Math.random() * actual_JSON.length)
+				var filteredData = actual_JSON[randomPick];
+				loopList(filteredData);
+
+			};
+
+			document.getElementById("txt-search").onkeyup = function () {
+				var searchField = this.value;
+
+				if (searchField === '') {
+					$('#filter-records').html('');
+					return;
+				}
+				var regex = new RegExp(searchField, "i");
+				var filteredData = actual_JSON.filter(function (review) {
+					return ((review.note.search(regex) != -1) || (review.elfid.search(regex) != -1));
+
+				});
+				loopList(filteredData)
+			}
+
+			if (urlParams.get('index')) {
+				var filteredData = actual_JSON.filter(function (review) {
+					return review.index === Number(urlParams.get('index'));
+
+				});
+				loopList(filteredData)
+			}
+
+
+		});
+	};
+
+
+
+	init()
+
+</script>
+
+<script>
+	var link = document.createElement('meta');
+	link.setAttribute('name', 'twitter:image');
+	link.content = document.location.origin + "/images/share.png";
+	document.getElementsByTagName('head')[0].appendChild(link);
+</script>

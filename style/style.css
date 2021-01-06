@@ -1,0 +1,96 @@
+dl {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1px 15px;
+}
+
+dt {
+    grid-column: 1;
+}
+
+dd {
+    grid-column: 2;
+}
+
+h3.nice {
+    color: green;
+}
+
+h3.naughty {
+    color: crimson;
+}
+
+h1.title {
+    color: white !important;
+    font-family: 'Alegreya', serif !important;
+    font-size: 50px;
+}
+
+body {
+    background-color: #881612 !important;
+    background-image: url(../images/home-kringlecon.jpg);
+    background-position: center center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#filter-buttons {
+    margin-bottom: 10px;
+}
+
+button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    opacity: 0.9;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+button#all-list {
+    background-color: #008CBA;
+    color: white;
+}
+
+button#naughty-list {
+    background-color: #d9534f;
+    color: white;
+}
+
+button#nice-list {
+    background-color: #5cb85c;
+    color: white;
+}
+
+
+div.nice {
+    background-image: url(../images/nice.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
+
+div.naughty {
+    background-image: url(../images/naughty.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
+
+.well {
+    float: left;
+}
+
+.share-icon {
+    float: right;
+}
+
+.share-review i {
+    font-size: 20px;
+}
