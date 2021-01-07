@@ -4,7 +4,9 @@ pages:
   stage: deploy
   script:
   - echo 'Gathering the list...'
-  - cp -r * public
+  - mkdir .public
+  - cp -r * .public
+  - mv .public public
   artifacts:
     paths:
     - public
