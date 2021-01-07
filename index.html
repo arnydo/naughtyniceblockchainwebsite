@@ -71,7 +71,7 @@
 		}
 
 		var tweetParam = {
-			url: "?url=" + decodeURIComponent(window.location.origin) + "?index=" + index,
+			url: "?url=" + decodeURIComponent(window.location.origin + window.location.pathname) + "?index=" + index,
 			text: "&text=Elf%20Report%20%23" + index + ":%20%22" + decodedNote + "%22",
 			hashtag : "&hashtags=holidayhack",
 			related: "&screen_name=kringlecon"
