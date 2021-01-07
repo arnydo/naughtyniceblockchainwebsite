@@ -13,6 +13,7 @@
 	<meta name="twitter:title" content="Search the Official Naughty Nice List Blockchain" />
 	<meta name="twitter:site" content="@kyle_parrish_" />
 	<meta name="twitter:creator" content="@kyle_parrish_" />
+	<meta name="twitter:image" content="https://naughtyniceblockchain.com/images/share.png" />
 
 	<link rel="stylesheet" href="style/style.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -65,15 +66,15 @@
 
 		var decodedNote = atob(note);
 
-		if (decodedNote.length > 200){
-			decodedNote = decodedNote.substring(1,200) + "..."
+		if (decodedNote.length > 200) {
+			decodedNote = decodedNote.substring(1, 200) + "..."
 			console.log(decodedNote)
 		}
 
 		var tweetParam = {
 			url: "?url=" + decodeURIComponent(window.location.origin + window.location.pathname) + "?index=" + index,
 			text: "&text=Elf%20Report%20%23" + index + ":%20%22" + decodedNote + "%22",
-			hashtag : "&hashtags=holidayhack",
+			hashtag: "&hashtags=holidayhack",
 			related: "&screen_name=kringlecon"
 		}
 
