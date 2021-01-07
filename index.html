@@ -94,7 +94,7 @@
 
 				output += '<div class="col-md-12 well">';
 				output += '<div class="col-md-12 ' + data[review].sign.toLowerCase() + '" >';
-				output += '<h3 class="' + data[review].sign.toLowerCase() + '">' + data[review].index + '</h3>';
+				output += '<h3 class="' + data[review].sign.toLowerCase() + '">' + data[review].index + ' <a href="pdf/' + data[review].index + '.pdf" target="_blank">(View PDF)</a></h3>';
 				output += '<p>' + data[review].note + '</p>'
 				output += '<dl class="inline">'
 				output += '<dt>ELF:</dt>'
@@ -110,7 +110,7 @@
 				output += '<dt>SIGN:</dt>'
 				output += '<dd>' + data[review].sign + '</dd>'
 				output += '</dl>'
-				output += '<div class="share-review"><a href="javascript:tweetCurrentReview(' + data[review].index + ',%22' + btoa(unescape(encodeURIComponent(data[review].note))) + '%22)"><i class="fa fa-twitter fa-2x">Share this review on Twitter!</i></a></div>'
+				output += '<div class="share-review"><a href="javascript:tweetCurrentReview(' + data[review].index + ',%22' + btoa(unescape(encodeURIComponent(data[review].note))) + '%22)"><i class="fa fa-twitter fa-2x">Share this ELF report on Twitter!</i></a></div>'
 				output += '</div>';
 				output += '</div>';
 			};
@@ -118,7 +118,7 @@
 		} else {
 			output += '<div class="col-md-12 well">';
 			output += '<div class="col-md-12 ' + data.sign.toLowerCase() + '" >';
-			output += '<h3 class="' + data.sign.toLowerCase() + '">' + data.index + '</h3>';
+			output += '<h3 class="' + data.sign.toLowerCase() + '">' + data.index + ' <a href="pdf/' + data.index + '.pdf" target="_blank">(View PDF)</a></h3>';
 			output += '<p>' + data.note + '</p>'
 			output += '<dl class="inline">'
 			output += '<dt>ELF:</dt>'
@@ -134,7 +134,7 @@
 			output += '<dt>SIGN:</dt>'
 			output += '<dd>' + data.sign + '</dd>'
 			output += '</dl>'
-			output += '<div class="share-review"><a href="javascript:tweetCurrentReview(' + data.index + ',%22' + btoa(unescape(encodeURIComponent(data.note))) + '%22)"><i class="fa fa-twitter fa-2x">Share this review on Twitter!</i></a></div>'
+			output += '<div class="share-review"><a href="javascript:tweetCurrentReview(' + data.index + ',%22' + btoa(unescape(encodeURIComponent(data.note))) + '%22)"><i class="fa fa-twitter fa-2x">Share this Elf report on Twitter!</i></a></div>'
 			output += '</div>';
 			output += '</div>';
 		}
