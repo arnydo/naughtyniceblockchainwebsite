@@ -9,7 +9,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="og:description" content="Search the Official Naughty Nice List Blockchain. Share your favorite! #holidayhack #kringlecon" />
+	<meta name="og:description"
+		content="Search the Official Naughty Nice List Blockchain. Share your favorite! #holidayhack #kringlecon" />
 	<meta name="twitter:title" content="Search the Official Naughty Nice List Blockchain" />
 	<meta name="twitter:site" content="@kyle_parrish_" />
 	<meta name="twitter:creator" content="@kyle_parrish_" />
@@ -41,6 +42,9 @@
 		</div>
 		<div id="filter-records"></div>
 	</div>
+
+	<div class="footer">Made with ❤ by <a href="https://twitter.com/kyle_parrish_" target="_blank">Kyle Parrish</a> for
+		<a href="https://holidayhackchallenge.com/2020/" target="_blank">Holiday Hack Challenge</a></div>
 </body>
 
 </html>
@@ -95,7 +99,12 @@
 
 				output += '<div class="col-md-12 well">';
 				output += '<div class="col-md-12 ' + data[review].sign.toLowerCase() + '" >';
-				output += '<h3 class="' + data[review].sign.toLowerCase() + '">' + data[review].index + ' <a href="pdf/' + data[review].index + '.pdf" target="_blank">(View PDF)</a></h3>';
+				if (data[review].index == 129459) {
+					var pdfLink = ' <a href="pdf/' + data[review].index + '.pdf" target="_blank">(PDF)</a> <a href="pdf/129459_naughty.pdf" target="_blank">("ORIGINAL" PDF)</a>'
+				} else {
+					var pdfLink = ' <a href="pdf/' + data[review].index + '.pdf" target="_blank">(PDF)</a>'
+				}
+				output += '<h3 class="' + data[review].sign.toLowerCase() + '">' + data[review].index + pdfLink + '</h3>';
 				output += '<p>' + data[review].note + '</p>'
 				output += '<dl class="inline">'
 				output += '<dt>ELF:</dt>'
@@ -119,7 +128,12 @@
 		} else {
 			output += '<div class="col-md-12 well">';
 			output += '<div class="col-md-12 ' + data.sign.toLowerCase() + '" >';
-			output += '<h3 class="' + data.sign.toLowerCase() + '">' + data.index + ' <a href="pdf/' + data.index + '.pdf" target="_blank">(View PDF)</a></h3>';
+			if (data.index == 129459) {
+				var pdfLink = ' <a href="pdf/' + data.index + '.pdf" target="_blank">(PDF)</a> <a href="pdf/129459_naughty.pdf" target="_blank">("ORIGINAL" PDF)</a>'
+			} else {
+				var pdfLink = ' <a href="pdf/' + data.index + '.pdf" target="_blank">(PDF)</a>'
+			}
+			output += '<h3 class="' + data.sign.toLowerCase() + '">' + data.index + pdfLink + '</h3>';
 			output += '<p>' + data.note + '</p>'
 			output += '<dl class="inline">'
 			output += '<dt>ELF:</dt>'
@@ -208,11 +222,4 @@
 
 	init()
 
-</script>
-
-<script>
-	var link = document.createElement('meta');
-	link.setAttribute('name', 'twitter:image');
-	link.content = document.location.origin + "/images/share.png";
-	document.getElementsByTagName('head')[0].appendChild(link);
 </script>
